@@ -2,9 +2,11 @@ import { Nori } from "https://deno.land/x/nori@v0.0.1/src/nori.ts";
 
 const app = new Nori();
 
-app.get("/", () => {
-  return new Response("Nori kutte NoriNori", {
+app.get("/", async () => {
+  const html = await Deno.readTextFile("./static/index.html");
+  return new Response(html, {
     status: 200,
+    headers: { "Content-Type": "text/html" },
   });
 });
 
