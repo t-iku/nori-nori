@@ -1,36 +1,30 @@
-import { Nori } from "https://deno.land/x/nori@v0.0.1/src/nori.ts";
+import { Nori } from "https://deno.land/x/nori@v0.0.2/src/nori.ts";
 
 const app = new Nori();
 
-app.get("/", async () => {
+app.get("/", async ({ response }) => {
   const html = await Deno.readTextFile("./static/index.html");
-  return new Response(html, {
-    status: 200,
-    headers: { "Content-Type": "text/html" },
-  });
+  return response.html(html)
 });
 
-app.get("/id/:id", ({ result }) => {
+app.get("/id/:id", ({ result, response }) => {
   const { id } = result.pathname.groups;
-  return new Response(id, {
-    status: 200,
-  });
+  if (!id) return response.error();
+  return response.text(id);
 });
 
-app.get("/json", ({ request }) => {
+app.get("/json", ({ request, response }) => {
   const data = {
     "key": "value",
     "url": request.url,
   };
 
-  return new Response(JSON.stringify(data), {
-    headers: { "Content-Type": "application/json" },
-  });
+  return response.json(data);
 });
 
-app.get("/redirect", ({ request }) => {
+app.get("/redirect", ({ request, response }) => {
   const root = new URL(request.url).origin;
-  return Response.redirect(root);
+  return response.redirect(root);
 });
 
 app.serve(8080);
