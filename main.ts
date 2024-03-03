@@ -1,4 +1,4 @@
-import { Nori } from "https://deno.land/x/nori@v0.0.2/src/nori.ts";
+import { Nori } from "nori/src/nori.ts";
 
 const app = new Nori();
 

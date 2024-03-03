@@ -1,0 +1,16 @@
+{
+  "tasks": {
+    "start": "deno run -A main.ts"
+  },
+  "lint": {
+    "rules": {
+      "tags": [
+        "recommended"
+      ]
+    }
+  },
+  "imports": {
+    "nori": "https://deno.land/x/nori@v0.0.2",
+    "nori/": "https://deno.land/x/nori@v0.0.2/"
+  }
+}
